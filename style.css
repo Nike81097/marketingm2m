@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#nav{
+    
+    position: relative;
+    top: 10px;
+    z-index: 2;
+    left: 150px;
+
+}
+
+   #map{
+       position: relative;
+       bottom: 120px;
+       z-index: -1;
+   }
+  
+/* 
+@media only screen and (max-width: 1200px) {
+body {
+    background-color: lightblue;
+}
+} */

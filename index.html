@@ -1,0 +1,125 @@
+.<html>
+    <head>
+        <title>M2M</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+            <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+             
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">M2M</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" onclick="" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Food
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                    <a class="dropdown-item"  onclick="mark(72.827,19.201, 72.825, 19.190, 72.82495,19.195, 72.8275,19.2015)">Pizza</a>
+                    <a class="dropdown-item"  onclick="mark(72.8271,19.2011, 72.8251, 19.1901, 72.824951,19.1951, 72.82751,19.20151)">Dosa</a>
+                    <a class="dropdown-item"  onclick="mark(72.8273,19.2012,72.8253,19.1902,72.824993,19.1952,72.82753,19.20152)">Sandwich</a>
+                  </div>
+                </li>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Clothing
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                          <a class="dropdown-item" onclick="mark(72.82107353,19.18998991,72.83072948,19.19696104,72.81944275,19.20243236,72.82560196,19.20148563)">Jeans</a>
+                          <a class="dropdown-item" onclick="mark(72.8313097,19.19974292,72.82780609,19.19096587,72.84805527,19.18695656,72.83082905,19.19032387)">Kids Wear</a>
+                          <a class="dropdown-item" onclick="mark(72.83700886,19.20767006,72.82281933,19.2088356,72.83423481,19.20964612,72.84337578,19.19910905)">Sarees</a>
+                        </div>
+                      </li>
+                      <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"  id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Electronics
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown3">
+                              <a class="dropdown-item" onclick="mark(72.83046341,19.1859838,72.8144989,19.19019904,72.84436798,19.18833462,72.82788849,19.19903448)">Mobiles</a>
+                              <a class="dropdown-item" onclick="mark(72.84161453,19.19486162,72.83079987,19.21220733,72.85165672,19.20296732,72.84642105,19.21471988)">T.V.</a>
+                              <a class="dropdown-item" onclick="mark(72.83803196,19.18894906,72.81992169,19.19190779,72.83282203,19.19563006,72.83947391,19.19352252)">Laptops</a>
+                            </div>
+                          </li>
+                                
+                          <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" onclick="" id="navbarDropdown4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Groceries
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <a class="dropdown-item" onclick="mark(72.82398147,19.19056381,72.83543987,19.1902801,72.83174915,19.18732134,72.8211731,19.19571436)">Household</a>
+                                  <a class="dropdown-item" onclick="mark(72.8421587,19.19295834,72.83147278,19.20321211,72.8318676,19.19211531,72.8237051,19.19076971)">Cooking Essentials</a>
+                                  <a class="dropdown-item" onclick="mark(72.83288898,19.19543065,72.82632294,19.19664653,72.8340992,19.1957176,72.8258749,19.19059948)">Baby Products</a>
+                                </div>
+                              </li>
+            </div>
+          </nav>
+
+
+                 <div id='map' style='width: 100%; height: 100%;'></div>
+                
+            <script>
+$('#map').click(function (event) {
+    var clickover = $(event.target);
+    var $navbar = $(".navbar-collapse");               
+    var _opened = $navbar.hasClass("in");
+    if (_opened === true && !clickover.hasClass("navbar-toggle")) {      
+        $navbar.collapse('hide');
+    }
+});
+                mapboxgl.accessToken = 'pk.eyJ1IjoiZW1iZXJ0ZWFtIiwiYSI6ImNqc2EwY2IxNzFkbGw0NG12ZzhoNG9wOG0ifQ.KHD1GhlQJ0QO2ylFoNSvOw';
+                var map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [72.82724669, 19.19777972],
+                zoom: 15,
+                });
+               
+
+                function mark(lon1,lat1,lon2,lat2,lon3,lat3, lon4,lat4)
+                {
+                map = new mapboxgl.Map({
+                container: 'map',
+                style: 'mapbox://styles/mapbox/streets-v11',
+                center: [72.8272467, 19.19777972],
+                zoom: 15,
+                });
+                    var marker = new mapboxgl.Marker({color: 'red'})
+                                .setLngLat([lon1, lat1])
+                                .addTo(map);  
+                                
+                    var marker2 = new mapboxgl.Marker({color: 'green'})
+                                .setLngLat([lon2, lat2])
+                                .addTo(map);  
+
+                                var marker3 = new mapboxgl.Marker({color: 'green'})
+                                .setLngLat([lon3, lat3])
+                                .addTo(map);  
+                                var marker4 = new mapboxgl.Marker({color: 'red'})
+                                .setLngLat([lon4, lat4])
+                                .addTo(map);               
+                }
+                function reload()
+                {
+                  window.location.reload();
+                }
+                 
+                
+                             
+            </script>    
+    </body>
+</html>
